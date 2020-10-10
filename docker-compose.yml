@@ -1,0 +1,14 @@
+# {{ sitepilot_managed }}
+version: '3.3'
+
+services:
+
+  webserver-test:
+    image: sitepilot/toolbox:latest
+    container_name: toolbox-test
+    restart: always
+    ports:
+      - '5222:22'
+    environment:
+      USER_NAME: "wiredworkers"
+      USER_PASSWORD: "indainda123"
