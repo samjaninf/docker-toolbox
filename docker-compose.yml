@@ -1,14 +1,18 @@
-# {{ sitepilot_managed }}
-version: '3.3'
+version: "3.3"
 
 services:
-
   webserver-test:
     image: sitepilot/toolbox:latest
     container_name: toolbox-test
     restart: always
     ports:
-      - '5222:22'
+      - "5222:22"
     environment:
       USER_NAME: "wiredworkers"
       USER_PASSWORD: "indainda123"
+      USER_PRIVATE_KEY: |-
+        -----BEGIN RSA PRIVATE KEY-----
+        FAKEKEY
+        -----END RSA PRIVATE KEY-----
+      USER_AUTHORIZED_KEYS: |-
+        fake-authorized-key

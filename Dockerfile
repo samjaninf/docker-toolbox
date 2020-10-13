@@ -16,7 +16,7 @@ ENV BUILD_PHP_VERSION=$PHP_VERSION
 
 # ----- Common ----- #
 
-RUN install_packages sudo less ca-certificates curl wget nano restic openssh-server
+RUN install_packages sudo less ca-certificates curl wget nano restic openssh-server git
 
 # ----- PHP ----- #
 
