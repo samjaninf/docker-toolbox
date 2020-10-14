@@ -15,9 +15,9 @@ Port 22
 #ListenAddress 0.0.0.0
 #ListenAddress ::
 
-#HostKey /etc/ssh/ssh_host_rsa_key
-#HostKey /etc/ssh/ssh_host_ecdsa_key
-#HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /opt/sitepilot/home/.sitepilot/ssh_host_rsa_key
+HostKey /opt/sitepilot/home/.sitepilot/ssh_host_dsa_key
+HostKey /opt/sitepilot/home/.sitepilot/ssh_host_ed25519_key
 
 # Ciphers and keying
 #RekeyLimit default none
@@ -114,7 +114,7 @@ AcceptEnv LANG LC_*
 Subsystem sftp internal-sftp
 
 Match Group sitepilot
-    ChrootDirectory /opt/sitepilot/app
+    ChrootDirectory /opt/sitepilot/apps
     AllowTCPForwarding no
     X11Forwarding no
     ForceCommand internal-sftp

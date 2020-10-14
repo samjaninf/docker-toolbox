@@ -16,7 +16,7 @@ ENV BUILD_PHP_VERSION=$PHP_VERSION
 
 # ----- Common ----- #
 
-RUN install_packages sudo less ca-certificates curl wget nano restic openssh-server git
+RUN install_packages sudo less ca-certificates curl wget nano restic openssh-server git zsh unzip ruby-full rubygems rsync
 
 # ----- PHP ----- #
 
@@ -50,6 +50,15 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
     && php -r "unlink('composer-setup.php');"
 
+# ----- NodeJS ----- #
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
+    && install_packages nodejs
+
+# ----- Wordmove ----- #
+
+RUN gem install --force --no-user-install wordmove
+
 # ----- User ----- #
 
 RUN addgroup --gid "$USER_GID" "$USER_NAME" \
@@ -69,9 +78,7 @@ COPY tags /
 
 RUN chown $USER_NAME:$USER_NAME /opt/sitepilot/home
 
-RUN chown root:root /opt/sitepilot/app
-
-RUN ln -s /opt/sitepilot/app /opt/sitepilot/home/app
+RUN chown root:root /opt/sitepilot/apps
 
 RUN mkdir /run/sshd
 
@@ -79,7 +86,7 @@ RUN mkdir /run/sshd
 
 USER $USER_ID
 
-WORKDIR /opt/sitepilot/app
+WORKDIR /opt/sitepilot/home
 
 EXPOSE 22
 
@@ -91,4 +98,6 @@ CMD ["/usr/sbin/sshd", "-D"]
 
 RUN php -v \
     && wp --version \
-    && composer --version
+    && composer --version \
+    && nodejs -v \
+    && npm -v
